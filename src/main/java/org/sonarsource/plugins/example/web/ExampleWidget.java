@@ -45,7 +45,7 @@ public class ExampleWidget extends AbstractRubyTemplate implements RubyRailsWidg
 
   @Override
   protected String getTemplatePath() {
-    return "C:\\Users\\suleman.malik\\Desktop\\parser\\eslint-report-widget.html.erb";
+    return "/Users/sulemanmalik/Desktop/parser/eslint-report-widget.html.erb";
   }
 
 }

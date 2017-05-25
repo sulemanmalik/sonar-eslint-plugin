@@ -1,2 +1,2 @@
-org\sonarsource\plugins\example\ExamplePlugin.class
-org\sonarsource\plugins\example\web\ExampleWidget.class
+org/sonarsource/plugins/example/web/ExampleWidget.class
+org/sonarsource/plugins/example/ExamplePlugin.class
