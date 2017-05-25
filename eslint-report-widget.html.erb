@@ -1,0 +1,192 @@
+
+  <!DOCTYPE html>
+  <head>
+     <link rel = 'stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+     <style>
+        .summary-table {
+        width: 50%;
+        }
+        .summary-table, .summary-table th, .summary-table td {
+        color: #333;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        margin: 0;
+        }
+        .summary-table th {
+        color: #444;
+        background-color: #fafafa;
+        font-weight: 400;
+        text-transform: capitalize;
+        border-bottom-width: 2px;
+        }
+        .difference-table, .difference-table th, .difference-table td {
+        float:right;
+        color: #333;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        margin: 0;
+        }
+        .right{
+        float:right;
+        }
+        .text-success {
+        color: #468847;
+        }
+        .text-warning {
+        color: #f0ad4e;
+        font-size: 105%;
+        font-weight: 500;
+        }
+        .text-error {
+        color: #b94a48;
+        font-size: 105%;
+        font-weight: 500;
+        }
+        .text-info{
+        color: #000000;
+        font-size: 105%;
+        font-weight: 500;
+        }
+        td, th {
+        padding: 2px 7px;
+        }
+        h1 {
+        margin: 0;
+        }
+        th {
+        font-weight: 400;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        }
+        .left{
+        float: left;
+        }
+     </style>
+     <script>
+        var acc = document.getElementsByClassName('accordion');
+        var i;
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function() {
+                this.classList.toggle('active');
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                }
+            }
+        }
+     </script>
+  </head>
+  <body>
+     <h1>ESLint Report - </h1> <h2>current analysis</h2>
+     <h>18206 Problems</h> &nbsp; <i class='fa fa-exclamation-circle text-error' aria-hidden='true'></i> Errors: 11550 &nbsp; <i class='fa fa-arrow-circle-up text-warning' aria-hidden='true'></i> Warnings: 6656 <br>
+<!--
+     <h1 class = 'text-info right'> <i class='fa fa-line-chart' aria-hidden='true'></i> Delta </h1>
+     <div class = 'table'>
+        <table class='difference-table'>
+          <tr>
+             <th>Rule</th>
+             <th>Count</th>
+           </tr>
+        </table>
+     </div>-->
+     <h1 class = 'text-error'> <i class='fa fa-exclamation-circle' aria-hidden='true'></i> Top Errors </h1>
+     <div class = 'table'>
+        <table class='summary-table'>
+           <tr>
+              <th>Rule</th>
+              <th>Count</th>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/indent'>indent</a></td>
+              <td>4777</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/quotes'>quotes</a></td>
+              <td>1523</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/space-before-blocks'>space-before-blocks</a></td>
+              <td>518</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/vars-on-top'>vars-on-top</a></td>
+              <td>518</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/space-before-function-paren'>space-before-function-paren</a></td>
+              <td>504</td>
+           </tr>
+        </table>
+     </div>
+     <br>
+     <h1 class = 'text-warning'> <i class='fa fa-arrow-circle-up' aria-hidden='true'></i> Top Warnings </h1>
+     <div class = 'table'>
+        <table class='summary-table'>
+           <tr>
+              <th>Rule</th>
+              <th>Count</th>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/func-names'>func-names</a></td>
+              <td>1872</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/no-magic-numbers'>no-magic-numbers</a></td>
+              <td>1211</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/newline-after-var'>newline-after-var</a></td>
+              <td>666</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/one-var'>one-var</a></td>
+              <td>663</td>
+           </tr>
+           <tr>
+              <td><a href='http://eslint.org/docs/rules/quote-props'>quote-props</a></td>
+              <td>388</td>
+           </tr>
+        </table>
+     </div>
+     <br>
+     <h1 class = 'text-info'> <i class='fa fa-folder-open' aria-hidden='true'></i> Problematic files </h1>
+     <div class = 'table'>
+        <table class='summary-table'>
+           <tr>
+              <th>File Path</th>
+              <th>Errors</th>
+              <th>Warnings</th>
+           </tr>
+           <tr bgcolor='#F2DEDE'>
+              <td>C:\workspace\web-schedule\apps\schedule\plugins\components\sort\js\directives\SortColumns.js</td>
+              <td>555</td>
+              <td>120</td>
+           </tr>
+           <tr>
+              <td>C:\workspace\web-schedule\apps\schedule\plugins\components\employeepattern\js\directives\EmployeePatternDirective.js</td>
+              <td>520</td>
+              <td>104</td>
+           </tr>
+           <tr>
+              <td>C:\workspace\web-schedule\apps\schedule\plugins\components\availability-pattern\js\services\AddEditAvailabilityPatternServiceModule.js</td>
+              <td>398</td>
+              <td>178</td>
+           </tr>
+           <tr>
+              <td>C:\workspace\web-schedule\apps\schedule\pages\schedule\js\daypilot\daypilot.ext.js</td>
+              <td>341</td>
+              <td>226</td>
+           </tr>
+           <tr>
+              <td>C:\workspace\web-schedule\apps\schedule\plugins\components\availability-pattern\js\directives\AddEditAvailabilityPattern.js</td>
+              <td>365</td>
+              <td>84</td>
+           </tr>
+        </table>
+     </div>
+     <br>
+
+  </body>
+  
