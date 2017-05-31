@@ -1,9 +1,109 @@
 #!/usr/bin/env ruby
 require 'json'
+require 'date'
 
 
   start = Time.now.to_f
-  templatePath = "#{File.dirname(__FILE__)}/eslint-report-widget.html.erb"
+ # templatePath = "#{File.dirname(__FILE__)}/eslint-report-widget.html.erb"
+templatePath = "C:\\Users\\suleman.malik\\Desktop\\eslint-report-widget.html.erb"
+
+f1path = "C:\\Users\\suleman.malik\\Desktop\\web-schedule-eslint.json"
+f2path = "C:\\Users\\suleman.malik\\Desktop\\web-schedule-eslint-2.json"
+f3path = "C:\\Users\\suleman.malik\\Desktop\\web-schedule-eslint-3.json"
+f4path = "C:\\Users\\suleman.malik\\Desktop\\web-schedule-eslint-4.json"
+f5path = "C:\\Users\\suleman.malik\\Desktop\\web-schedule-eslint-5.json"
+
+
+
+  f1 = File.read(f1path)
+  f2 = File.read(f2path)
+  f3 = File.read(f3path)
+  f4 = File.read(f4path)
+  f5 = File.read(f5path)
+
+  f1hash = JSON.parse(f1)
+  f2hash = JSON.parse(f2)
+  f3hash = JSON.parse(f3)
+  f4hash = JSON.parse(f4)
+  f5hash = JSON.parse(f5)
+
+
+errorCount1= 0
+errorCount2=0
+errorCount3 = 0
+errorCount4=0
+errorCount5 = 0
+warningCount1= 0
+warningCount2= 0
+warningCount3= 0
+warningCount4= 0
+warningCount5 = 0
+
+
+
+  for i in 0..f1hash.size-1 do
+    errorCount1 += f1hash[i]['errorCount']
+    warningCount1 += f1hash[i]['warningCount']
+  end
+  problemCount1 = errorCount1+warningCount1
+
+  for i in 0..f2hash.size-1 do
+    errorCount2 += f2hash[i]['errorCount']
+    warningCount2 += f2hash[i]['warningCount']
+  end
+  problemCount2 = errorCount2+warningCount2
+
+  for i in 0..f3hash.size-1 do
+    errorCount3 += f3hash[i]['errorCount']
+    warningCount3 += f3hash[i]['warningCount']
+  end
+  problemCount3 = errorCount3+warningCount3
+
+  for i in 0..f4hash.size-1 do
+    errorCount4 += f4hash[i]['errorCount']
+    warningCount4 += f4hash[i]['warningCount']
+  end
+  problemCount4 = errorCount4+warningCount4
+
+  for i in 0..f5hash.size-1 do
+    errorCount5 += f5hash[i]['errorCount']
+    warningCount5 += f5hash[i]['warningCount']
+  end
+  problemCount5 = errorCount5+warningCount5
+
+
+
+
+
+  f1_mod_time_day = File.mtime(f1path).day
+  f1_mod_time_month = File.mtime(f1path).month
+  f1_mod_time_year = File.mtime(f1path).year
+
+  f1_date_string = #{f1_mod_time_day}/#{f1_mod_time_month}/#{f1_mod_time_year}
+
+  f2_mod_time_day = File.mtime(f2path).day
+  f2_mod_time_month = File.mtime(f2path).month
+  f2_mod_time_year = File.mtime(f2path).year
+
+
+  f3_mod_time_day = File.mtime(f3path).day
+  f3_mod_time_month = File.mtime(f3path).month
+  f3_mod_time_year = File.mtime(f3path).year
+
+  f4_mod_time_day = File.mtime(f4path).day
+  f4_mod_time_month = File.mtime(f4path).month
+  f4_mod_time_year = File.mtime(f4path).year
+
+  f5_mod_time_day = File.mtime(f5path).day
+  f5_mod_time_month = File.mtime(f5path).month
+  f5_mod_time_year = File.mtime(f5path).year
+
+
+
+ # puts Date::MONTHNAMES[old.month]
+
+
+
 
 =begin FILE DIFFERENCES RUBY
   #f1 = File.read("/Users/sulemanmalik/Desktop/eslint-kronos.json")
@@ -50,7 +150,9 @@ require 'json'
 
   #READING JSON FILE, STORING INTO STRING AND PARSING AS A HASH TABLE
   #jsonStr = File.read("tmp/eslint-reports/eslint-kronos.json")           #USE FOR TEST SERVER
-  jsonStr = File.read("C:\\Users\\suleman.malik\\Desktop\\parser\\web-schedule-eslint.json")   #USE FOR LOCAL SERVER
+
+  #CURRENT ANALYSIS
+  jsonStr = File.read(f5path)   #USE FOR LOCAL SERVER
 
   jsonHash = JSON.parse(jsonStr)
 
@@ -164,6 +266,8 @@ require 'json'
   <!DOCTYPE html>
   <head>
      <link rel = 'stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+     <script src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js'> </script>
+     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
      <style>
         .summary-table {
         width: 50%;
@@ -223,6 +327,10 @@ require 'json'
         .left{
         float: left;
         }
+        .graph{
+        float: left;
+        }
+
      </style>
      <script>
         var acc = document.getElementsByClassName('accordion');
@@ -239,20 +347,52 @@ require 'json'
             }
         }
      </script>
+
+      <script>
+                jQuery(document).ready(function(){
+            jQuery('#hideshow').on('click', function(event) {
+                 jQuery('#content').toggle('show');
+            });
+        });
+
+      </script>
+
   </head>
   <body>
-     <h1>ESLint Report - </h1> <h2>current analysis</h2>
-     <h>#{problemCount} Problems</h> &nbsp; <i class='fa fa-exclamation-circle text-error' aria-hidden='true'></i> Errors: #{errorCount} &nbsp; <i class='fa fa-arrow-circle-up text-warning' aria-hidden='true'></i> Warnings: #{warningCount} <br>
-<!--
-     <h1 class = 'text-info right'> <i class='fa fa-line-chart' aria-hidden='true'></i> Delta </h1>
-     <div class = 'table'>
-        <table class='difference-table'>
-          <tr>
-             <th>Rule</th>
-             <th>Count</th>
-           </tr>
-        </table>
-     </div>-->
+     <h1 style = 'font-weight:bold'>ESLint Report</h1> <h style = 'font-weight:bold'>current analysis: </h> <h> #{f5path}</h> <br> <br>
+       <h>#{problemCount} Problems</h> &nbsp; <i class='fa fa-exclamation-circle text-error' aria-hidden='true'></i> Errors: #{errorCount} &nbsp; <i class='fa fa-arrow-circle-up text-warning' aria-hidden='true'></i> Warnings: #{warningCount} <br>
+
+  <div class = 'graph'>
+  <canvas id='myChart' width='5' height='5'></canvas>
+  <canvas width='300' height='200'></canvas>
+  <canvas style='width: 400px; height: 200px'></canvas>
+
+  <script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+    data: {
+      labels: ['#{f1_mod_time_day}/#{f1_mod_time_month}/#{f1_mod_time_year}', '#{f2_mod_time_day}/#{f2_mod_time_month}/#{f2_mod_time_year}', '#{f3_mod_time_day}/#{f3_mod_time_month}/#{f3_mod_time_year}', '#{f4_mod_time_day}/#{f4_mod_time_month}/#{f4_mod_time_year}', '#{f5_mod_time_day}/#{f5_mod_time_month}/#{f5_mod_time_year}', 'S', 'S','s', 's', 's','s'],
+      datasets: [{
+        label: 'Errors',
+        data: [16500, #{errorCount2}, #{errorCount3}, #{errorCount4}, #{errorCount5}, 17000, 16000, 15000, 12000, 13000, 14000],
+        backgroundColor: 'rgba(185, 74, 72, 0.2)',
+        borderColor: 'rgba(185, 74, 72, 1)',
+        borderWidth: 1
+      }, {
+        label: 'Warnings',
+        data: ['#{warningCount1}', #{warningCount2}, #{warningCount3}, #{warningCount4}, #{warningCount5}, 3000, 1030, 2000, 1345, 2340, 4567],
+        backgroundColor: 'rgba(255,153,0,0.2)',
+        borderColor: 'rgba(255,153,0,1)',
+        borderWidth: 1
+      }]
+    },
+ options: {
+        responsive: true
+    }
+  });
+  </script>
+</div>
      <h1 class = 'text-error'> <i class='fa fa-exclamation-circle' aria-hidden='true'></i> Top Errors </h1>
      <div class = 'table'>
         <table class='summary-table'>
@@ -367,7 +507,7 @@ require 'json'
 
   ending = Time.now.to_f
 
-  puts errorCount
+
   endTime = ending-start
 
   puts endTime
